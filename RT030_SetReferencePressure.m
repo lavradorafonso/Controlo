@@ -1,4 +1,4 @@
-function [tension,PressureValue,time] = RT030_SetReferencePressure(ReferencePressure)
+function [tension,PressureValue,time] = RT030_SetPressure(ReferencePressure)
 
 %____________________Iniciliaz????es_______________________
 
@@ -12,8 +12,8 @@ tol = 0.01;
 
 
 PressureValue = RT030_GetPressure();
-pause(delay_estab);
-while(hit == 0)            %Flag para a press?o menor que a referencia
+pause(0.5);
+%while(hit == 0)            %Flag para a press?o menor que a referencia (ver se ? mesmo necessaria ou basta break)
     while(PressureValue < ReferencePressure)
         
         if(ReferencePressure -PressureValue < 0.1)  %pequenos incrementos
@@ -29,11 +29,11 @@ while(hit == 0)            %Flag para a press?o menor que a referencia
         sprintf('Erro: %g', abs(PressureValue -ReferencePressure))
         sprintf('Tens?o: %g',MotorVoltage)%Se o valor estiver com um erro de 0.01, ser? dado hit!
         if(abs(PressureValue-ReferencePressure)<tol);
-            hit = 1;
+            %hit = 1;
             break;
         end;
 
     end;
-end;
+%end;
 sprintf('Acabou com %g tens???o e %g press???o na camara.', MotorVoltage, round(RT030_GetPressure(),2))
 end
